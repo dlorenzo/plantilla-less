@@ -1,3 +1,4 @@
+
 var gulp = require('gulp');
 var less = require('gulp-less');
 var wait = require('gulp-wait');
@@ -10,8 +11,8 @@ gulp.task('build', ['clean'], function () {
 });
 
 gulp.task('watch', ['clean'], function () {
-  procSass();
-  gulp.watch('./less/{,**/}*.{less}', ['less']);
+  procLess();
+  gulp.watch('./less/**/*.less', ['less']);
 });
 
 gulp.task('clean', function () {
@@ -22,22 +23,22 @@ gulp.task('clean', function () {
 gulp.task('less', procLess);
 
 /**
- * Estilos
- */
+* Estilos
+*/
 function procLess(release = false) {
   if (release === true) {
-    return gulp.src('./less/**/*.less')
+    return gulp.src('./less/**/[^_]*.less')
       .pipe(wait(500))
       .pipe(less({
-         paths: [ path.join(__dirname, 'less', 'includes') ]
+        paths: [path.join(__dirname, 'less', 'includes')]
       }))
       .pipe(gulp.dest('./css'));
   } else {
-    return gulp.src('./scss/**/*.scss')
+    return gulp.src('./less/**/[^_]*.less')
       .pipe(wait(1000))
       .pipe(sourcemaps.init())
       .pipe(less({
-         paths: [ path.join(__dirname, 'less', 'includes') ]
+        paths: [path.join(__dirname, 'less', 'includes')]
       }))
       .pipe(sourcemaps.write())
       .pipe(gulp.dest('./css'));
