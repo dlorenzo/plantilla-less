@@ -6,11 +6,11 @@ var sourcemaps = require('gulp-sourcemaps');
 var path = require('path');
 var clean = require('gulp-clean');
 
-gulp.task('build', ['clean'], function () {
+gulp.task('build', [], function () {
   procLess(true);
 });
 
-gulp.task('watch', ['clean'], function () {
+gulp.task('watch', [], function () {
   procLess();
   gulp.watch('./less/**/*.less', ['less']);
 });
